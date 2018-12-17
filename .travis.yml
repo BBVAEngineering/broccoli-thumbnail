@@ -8,8 +8,29 @@ cache:
   directories:
     - $HOME/.npm
 
+stages:
+  - "Tests"
+  - name: "Release"
+    if: branch = master
+
+env:
+  global:
+    - JOBS=1
+
+jobs:
+  fail_fast: true
+  include:
+    - stage: "Tests"
+    - stage: "Release"
+      script: skip
+      env: []
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npx semantic-release
+
 before_install:
-  # Configuration.
   - npm config set spin false
   - npm install -g codecov
   - npm install -g greenkeeper-lockfile@1
@@ -33,18 +54,3 @@ after_script:
 after_success:
   - codecov --file=coverage/lcov.info
 
-stages:
-  - test
-  - name: release
-    if: branch = master
-
-jobs:
-  include:
-    - stage: release
-      script: skip
-      env: []
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - npx semantic-release
