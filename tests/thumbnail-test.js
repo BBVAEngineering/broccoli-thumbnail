@@ -1,6 +1,7 @@
 'use strict';
 /* eslint-env mocha */
 /* eslint-disable prefer-arrow-callback */
+/* eslint-disable no-magic-numbers */
 
 const path = require('path');
 const expect = require('chai').expect;
@@ -31,7 +32,7 @@ describe('broccoli-lint-remark', function() {
 	});
 
 	it('exists', function() {
-		expect(Thumbnail).to.exist;
+		expect(Thumbnail).to.exist; // eslint-disable-line
 	});
 
 	it('links all the existing files', async function() {
