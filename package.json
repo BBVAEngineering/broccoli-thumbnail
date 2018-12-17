@@ -4,13 +4,12 @@
   "description": "Copy and resizes images given an input tree",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./tests",
+    "test": "nyc --reporter=html --reporter=json --reporter=json-summary --reporter=lcov mocha ./tests",
     "lint:js": "eslint --ext .js --max-warnings 0 ./*.js lib tests",
     "report-coverage": "istanbul report --include=coverage/coverage-final.json text",
-    "check-coverage": "istanbul check-coverage coverage/coverage-final.json --statements 95 --functions 95 --branches 95 --lines 95",
+    "check-coverage": "istanbul check-coverage coverage/coverage-final.json --statements 100 --functions 100 --branches 100 --lines 100",
+    "posttest": "npm run report-coverage && npm run check-coverage",
     "commit": "git-cz",
-    "prepublishOnly": "ember ts:precompile",
-    "postpublish": "ember ts:clean",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once"
   },
@@ -61,6 +60,7 @@
     "image-size": "^0.6.3",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
     "semantic-release": "^15.12.2",
     "travis-deploy-once": "^5.0.9"
   },
