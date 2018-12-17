@@ -1,0 +1,53 @@
+---
+language: node_js
+sudo: false
+dist: trusty
+node_js: 'stable'
+
+cache:
+  directories:
+    - $HOME/.npm
+
+matrix:
+  fast_finish: true
+
+before_install:
+  # Configuration.
+  - npm config set spin false
+  - npm install -g codecov
+  - npm install -g greenkeeper-lockfile@1
+  - npm install -g @commitlint/travis-cli
+  - npm --version
+
+install:
+  - if [[ $TRAVIS_BRANCH =~ greenkeeper || $TRAVIS_PULL_REQUEST_BRANCH =~ greenkeeper ]]; then npm install; else npm ci; fi
+
+before_script:
+  - greenkeeper-lockfile-update
+
+script:
+  - commitlint-travis
+  - npm run lint:js
+  - COVERAGE=true node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
+
+after_script:
+  - greenkeeper-lockfile-upload
+
+after_success:
+  - codecov --file=coverage/lcov.info
+
+stages:
+  - test
+  - name: release
+    if: branch = master
+
+jobs:
+  include:
+    - stage: release
+      script: skip
+      env: []
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npx semantic-release
