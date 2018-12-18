@@ -1,7 +1,4 @@
 'use strict';
-/* eslint-env mocha */
-/* eslint-disable prefer-arrow-callback */
-/* eslint-disable no-magic-numbers */
 
 const path = require('path');
 const expect = require('chai').expect;

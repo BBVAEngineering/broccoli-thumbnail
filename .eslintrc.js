@@ -1,4 +1,3 @@
-/* eslint-env node */
 'use strict';
 
 module.exports = {
@@ -11,6 +10,18 @@ module.exports = {
 		node: true
 	},
 	rules: {
-		"callback-return": 0
-	}
+		'callback-return': 0
+	},
+	overrides: [{
+		files: [
+			'tests**/*.js'
+		],
+		env: {
+			mocha: true
+		},
+		rules: {
+			'prefer-arrow-callback': 0,
+			'no-magic-numbers': 0
+		}
+	}]
 };
