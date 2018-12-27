@@ -1,0 +1,65 @@
+---
+language: node_js
+sudo: false
+dist: trusty
+node_js: 'stable'
+
+cache:
+  directories:
+    - $HOME/.npm
+
+stages:
+  - 'Tests'
+  - 'Regression Tests'
+  - name: 'Release'
+    if: branch = master
+
+env:
+  global:
+    - JOBS=1
+
+jobs:
+  fail_fast: true
+  include:
+    - stage: 'Tests'
+      before_install:
+        - npm config set spin false
+        - npm install -g npm@6
+        - npm install -g codecov
+        - npm install -g greenkeeper-lockfile@1
+        - npm install -g @commitlint/travis-cli
+        - npm --version
+      install:
+        - if [[ $TRAVIS_BRANCH =~ greenkeeper || $TRAVIS_PULL_REQUEST_BRANCH =~ greenkeeper ]]; then npm install; else npm ci; fi
+      before_script:
+        - greenkeeper-lockfile-update
+      script:
+        - commitlint-travis
+        - npm run lint:js
+        - npm test
+      after_script:
+        - greenkeeper-lockfile-upload
+      after_success:
+        - codecov --file=coverage/lcov.info
+
+    - stage: 'Regression Tests'
+      node_js: 'lts/carbon'
+    - node_js: 'lts/dubnium'
+
+    - stage: 'Release'
+      script: skip
+      env: []
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npx semantic-release
+
+before_install:
+  - npm config set spin false
+  - npm install -g npm@6
+  - npm --version
+
+script:
+  - npm test
+

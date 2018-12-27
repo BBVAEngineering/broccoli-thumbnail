@@ -1,0 +1,14 @@
+# dependencies
+/node_modules
+
+# misc
+/.sass-cache
+/.nyc_output
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log*
+yarn-error.log
+testem.log
+tags*
+/.nyc_output
