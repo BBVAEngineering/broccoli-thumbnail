@@ -1,6 +1,6 @@
 {
   "name": "broccoli-thumbnail",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Copy and resizes images given an input tree",
   "main": "index.js",
   "scripts": {
