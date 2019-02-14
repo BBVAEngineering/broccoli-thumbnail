@@ -39,18 +39,19 @@ module.exports = {
   // ...
 
   treeForPublic() {
-    return new Thumbnail('assets/images');
+    return new Thumbnail('assets/images', { /* options */ });
   }
 };
 ```
 
 ## Options
 
-| Option | Type     | Defaults                      | Description                               |
-|--------|----------|-------------------------------|-------------------------------------------|
-| prefix | `String` | `thumbnail_`                  | Prefix to be added on each thumbnail name |
-| globs  | `Array`  | `['**/*.(jpg|jpeg|gif|png)']` | Files to be processed                     |
-| width  | `Number` | `64`                          | Thumbnail width                           |
+| Option     | Type      | Defaults                        | Description                               |
+|------------|-----------|---------------------------------|-------------------------------------------|
+| prefix     | `String`  | `thumbnail_`                    | Prefix to be added on each thumbnail name |
+| extensions | `Array`   | `['jpg', 'jpeg', 'gif', 'png']` | Files to be processed                     |
+| persist    | `Boolean` | `false`                         | Use disk cache                            |
+| width      | `Number`  | `64`                            | Thumbnail width                           |
 
 ## Versioning
 
