@@ -11,7 +11,7 @@ const Thumbnail = require('..');
 const createBuilder = testHelpers.createBuilder;
 const createTempDir = testHelpers.createTempDir;
 
-describe('broccoli-lint-remark', function() {
+describe('broccoli-thumbnail', function() {
 	let input, output;
 
 	beforeEach(async function() {
@@ -32,28 +32,41 @@ describe('broccoli-lint-remark', function() {
 		expect(Thumbnail).to.exist; // eslint-disable-line
 	});
 
+	it('implements "baseDir()"', function() {
+		const pluginInstance = new Thumbnail('foo');
+
+		expect(pluginInstance.baseDir).to.be.a('function');
+		expect(pluginInstance.baseDir()).to.be.equal(process.cwd());
+	});
+
+	it('implements "cacheKeyProcessString()"', function() {
+		const pluginInstance = new Thumbnail('foo');
+
+		expect(pluginInstance.cacheKeyProcessString).to.be.a('function');
+		expect(pluginInstance.cacheKeyProcessString('a', 'b')).to.be.equal('a35aea60fe097c885568babb48ee7d1e');
+	});
+
 	it('links all the existing files', async function() {
 		input.write({
 			'a.txt': 'a.txt',
 			'a.log': 'a.log'
 		});
 		const tree = new Funnel(input.path());
-		const pluginInstance = new Thumbnail(tree, { globs: [] });
+		const pluginInstance = new Thumbnail(tree);
 
 		output = createBuilder(pluginInstance);
 
 		await output.build();
 
-		expect(Object.keys(output.read())).to.deep.equal(['a.log', 'a.txt', 'troll.jpg']);
+		expect(Object.keys(output.read())).to.deep.equal(['a.log', 'a.txt', 'thumbnail_troll.jpg']);
 	});
 
-	it('generates thumbnails given a prefix and a glob', async function() {
+	it('generates thumbnails given a prefix', async function() {
 		const filename = 'troll.jpg';
 		const prefix = 'prefix_';
 		const tree = new Funnel(input.path());
 		const pluginInstance = new Thumbnail(tree, {
-			prefix,
-			globs: [filename]
+			prefix
 		});
 
 		output = createBuilder(pluginInstance);
@@ -70,7 +83,7 @@ describe('broccoli-lint-remark', function() {
 		const tree = new Funnel(input.path());
 		const pluginInstance = new Thumbnail(tree, {
 			prefix,
-			globs: [filename],
+			extensions: ['jpg'],
 			width
 		});
 
