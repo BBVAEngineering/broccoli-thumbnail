@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/BBVAEngineering/broccoli-thumbnail/compare/v2.0.0...v2.0.1) (2019-03-07)
+
+
+### Bug Fixes
+
+* **thumbnail:** set outputEncoding option to null ([0185371](https://github.com/BBVAEngineering/broccoli-thumbnail/commit/0185371)), closes [#7](https://github.com/BBVAEngineering/broccoli-thumbnail/issues/7)
+
 # [2.0.0](https://github.com/BBVAEngineering/broccoli-thumbnail/compare/v1.0.0...v2.0.0) (2019-02-14)
 
 
