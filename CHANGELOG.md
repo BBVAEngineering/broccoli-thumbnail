@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/BBVAEngineering/broccoli-thumbnail/compare/v2.0.1...v2.0.2) (2019-03-19)
+
+
+### Bug Fixes
+
+* **package:** update sharp to version 0.22.0 ([e5d783e](https://github.com/BBVAEngineering/broccoli-thumbnail/commit/e5d783e))
+
 ## [2.0.1](https://github.com/BBVAEngineering/broccoli-thumbnail/compare/v2.0.0...v2.0.1) (2019-03-07)
 
 
