@@ -52,7 +52,7 @@
     "broccoli-funnel": "^2.0.1",
     "broccoli-test-helper": "^2.0.0",
     "chai": "^4.2.0",
-    "commitizen": "^3.0.5",
+    "commitizen": "^4.0.2",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.1.0",
     "eslint-config-bbva": "^2.0.0",
