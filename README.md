@@ -1,3 +1,5 @@
+# DEPRECATED
+
 # broccoli-thumbnail
 
 [![Build Status](https://travis-ci.org/BBVAEngineering/broccoli-thumbnail.svg?branch=master)](https://travis-ci.org/BBVAEngineering/broccoli-thumbnail)
